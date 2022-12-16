@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rizalman Boutique</title>
+</head>
+
+<body>
+    <h1 style="text-align:center">Rizalman Boutique</h1>
+    <div style="border:1px solid black; margin-left:700px; margin-right:700px;">
+        <h4 style="margin-left: 40px">CUSTOMER INFO</h4>
+        <table style="text-align:left; margin-block: 30px; margin-left:37px">
+            <tr>
+                <td>Customer<br>Name</td>
+                <td><input type="text" id="cusname" size="45" placeholder="eg: RIZAL BIN MAN"></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><input type="text" id="cusaddress" size="45" placeholder="eg: SHAH ALAM"></td>
+            </tr>
+            <tr>
+                <td>Contact<br>Number</td>
+                <td><input type="text" id="cusnumber" size="45" placeholder="eg: 0123456789"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="border:1px solid black; margin-block: 40px; margin-left:700px; margin-right:700px;">
+        <h4 style="margin-left: 40px">ORDER DETAILS</h4>
+        <table style="text-align:left; margin-block: 30px; margin-left:37px">
+            <tr>
+                <th>Type of Baju</th>
+                <th>Quantity</th>
+            </tr>
+            <tr>
+                <td>Baju Kebaya</td>
+                <td><input type="text" id="bajukeb"></td>
+            </tr>
+            <tr>
+                <td>Baju Melayu Cekak Musang</td>
+                <td><input type="text" id="bajumel"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="border:1px solid black; margin-block: 40px; margin-left:700px; margin-right:700px;">
+        <h4 style="margin-left: 40px">PAYMENT DETAILS</h4>
+        <table style="text-align:left; margin-block: 30px; margin-left:37px">
+            <tr>
+                <td>Total Amount</td>
+                <td style="border: 1px solid black" id="totalam"></td>
+            </tr>
+            <tr>
+                <td>Deposit</td>
+                <td><input type="text" id="depo" ></td>
+            </tr>
+            <tr>
+                <td>Balance</td>
+                <td style="border: 1px solid black" id="bal"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="margin-left:700px">
+        <button type="button" id="calcbtn" onClick="calc()">Calculate</button>
+        <button type="button" id="receiptbtn" onClick="receiptprint()">Receipt</button>
+        <button type="button" id="clearbtn" onclick="window.location.reload()">Clear</button>
+    </div>
+
+    <script>
+        function calc(){
+            var bk = parseInt(document.getElementById("bajukeb").value);
+            var bm = parseInt(document.getElementById("bajumel").value);
+            var dp = parseInt(document.getElementById("depo").value);
+            var balmoney = parseInt(document.getElementById("bal").value);
+
+            if(!isNaN(bk && bm)){
+                document.getElementById("totalam").innerHTML = bk + bm;
+            }else{
+                alert("Please enter an integer for the quantity.");
+            }
+
+            balmoney = dp - (( bk * 140 ) + ( bm * 150 ));
+            if( balmoney < 0 ){
+                alert("The total amount is more than the deposit. Please clear page and refill form.");
+            }else{
+                document.getElementById("bal").innerHTML = balmoney;
+            }
+        }
+
+        function receiptprint(){
+            var bk = parseInt(document.getElementById("bajukeb").value);
+            var bm = parseInt(document.getElementById("bajumel").value);
+            var dp = parseInt(document.getElementById("depo").value);
+            var tp = ( bk * 140 ) + ( bm * 150 );
+            var balmoney = parseInt(document.getElementById("bal").value);
+            var cn = document.getElementById("cusname").value;
+            var ca = document.getElementById("cusaddress").value;
+            var cnu = document.getElementById("cusnumber").value;
+
+            if(!isNaN(bk && bm)){
+                document.getElementById("totalam").innerHTML = bk + bm;
+            }else{
+                alert("Please enter an integer for the quantity.");
+            }
+
+            balmoney = dp - tp;
+            if( balmoney < 0 ){
+                alert("The total amount is more than the deposit. Please clear page and refill form.");
+            }else{
+                document.getElementById("bal").innerHTML = balmoney;
+            }
+
+            alert("The receipt\nName : "+cn+"\nAddress : "+ca+"\nContact number : "+cnu+"\n====================================\nTotal price : "+tp+"\nThe Balance is "+balmoney);
+        }
+    </script>
+</body>
+</html>
